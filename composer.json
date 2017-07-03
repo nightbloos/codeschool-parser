@@ -1,0 +1,26 @@
+{
+  "name": "nightbloos/codeschoolParser",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "nBloos",
+      "email": "nightbloos@upnbiz.com",
+      "homepage": "https://github.com/nightbloos"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "": "src/"
+    },
+    "classmap": [
+      "app/AppKernel.php"
+    ]
+  },
+  "require": {
+    "symfony/console": "3.2.x-dev",
+    "symfony/framework-bundle": "3.2.*",
+    "guzzlehttp/guzzle": "6.2.2",
+    "imangazaliev/didom": "1.8.7",
+    "cocur/slugify": "2.5"
+  }
+}
