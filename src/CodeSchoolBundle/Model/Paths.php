@@ -35,10 +35,10 @@ class Paths
     /**
      * Paths constructor.
      *
-     * @param Element|\DOMElement $card
-     * @param string              $directoryPath
+     * @param Element $card
+     * @param string  $directoryPath
      */
-    public function __construct($card, string $directoryPath)
+    public function __construct(Element $card, string $directoryPath)
     {
         $this->link = ltrim($card->find('a')[0]->getAttribute('href'), '/');
         $this->name = $card->find('div.bucket-content h2 span.path-title-link')[0]->text();
@@ -197,7 +197,7 @@ class Paths
     {
         $description = 'Name: '.$this->getName()."\r\n";
         $description .= 'Description: '.$this->getDescription()."\r\n";
-        $description .= 'Link: '.$this->getLink()."\r\n";
+        $description .= 'Link: '.ClientHelper::BASE_URL_PATH.$this->getLink()."\r\n";
 
         FileHelper::saveDescription($this->getDirectoryPath(), $description);
         FileHelper::saveCover($client, $this->getDirectoryPath(), $this->getLogoPath());

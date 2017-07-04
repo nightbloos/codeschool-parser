@@ -1,6 +1,7 @@
 {
-  "name": "nightbloos/codeschoolParser",
+  "name": "nightbloos/codeschool-parser",
   "license": "proprietary",
+  "description": "Parser for downloading videos from codeschool.com",
   "authors": [
     {
       "name": "nBloos",
@@ -10,15 +11,12 @@
   ],
   "autoload": {
     "psr-4": {
-      "": "src/"
-    },
-    "classmap": [
-      "app/AppKernel.php"
-    ]
+      "CodeSchoolBundle\\": "src/CodeSchoolBundle"
+    }
   },
   "require": {
     "symfony/console": "3.2.x-dev",
-    "symfony/framework-bundle": "3.2.*",
+    "symfony/filesystem": "3.2.x-dev",
     "guzzlehttp/guzzle": "6.2.2",
     "imangazaliev/didom": "1.8.7",
     "cocur/slugify": "2.5"

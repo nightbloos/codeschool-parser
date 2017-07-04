@@ -21,9 +21,6 @@ class CodeSchoolParserCommand extends Command
     /** @var ClientHelper $webClient */
     private $client;
 
-    /** @var Paths[] */
-    private $paths = [];
-
     public function configure()
     {
         $this
@@ -54,13 +51,10 @@ class CodeSchoolParserCommand extends Command
         $document = new Document($result->getBody()->getContents());
         $pathCards = $document->find('.card.card--a');
         echo sprintf("-> found %s path(s) \n", count($pathCards));
-        $paths = [];
         foreach ($pathCards as $card) {
             $path = new Paths($card, $pathsDirectoryPath);
             $path->parseCourseSubGroup($this->client);
             $path->generateMeta($this->client);
-            $paths[] = $path;
         }
-        $this->paths = $paths;
     }
 }

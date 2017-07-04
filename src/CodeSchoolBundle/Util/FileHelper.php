@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace CodeSchoolBundle\Util;
 
 use Cocur\Slugify\Slugify;
+use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * Class FileHelper.
@@ -29,9 +30,10 @@ class FileHelper
     public static function createDir(string $path)
     {
         $newDir = ROOT_DIR.$path;
+        $fs = new Filesystem();
 
-        if (!is_dir($newDir)) {
-            mkdir($newDir, 0777, true);
+        if (!$fs->exists($newDir)) {
+            $fs->mkdir($newDir);
         }
     }
 
@@ -42,8 +44,10 @@ class FileHelper
     public static function saveDescription(string $path, string $content)
     {
         $descriptionPath = $path.DIRECTORY_SEPARATOR.'description.txt';
-        if (!file_exists($descriptionPath)) {
-            file_put_contents($descriptionPath, $content);
+        $fs = new Filesystem();
+
+        if (!$fs->exists($descriptionPath)) {
+            $fs->dumpFile($descriptionPath, $content);
         }
     }
 
@@ -54,8 +58,11 @@ class FileHelper
      */
     public static function saveCover(ClientHelper $client, string $path, string $imageURL)
     {
-        $coverPath = $path.DIRECTORY_SEPARATOR.'cover.svg';
-        if (!file_exists($coverPath)) {
+        preg_match("#\.\w+$#", $imageURL, $extension);
+
+        $coverPath = $path.DIRECTORY_SEPARATOR."cover.$extension[0]";
+        $fs = new Filesystem();
+        if (!$fs->exists($coverPath)) {
             $coverResource = fopen($coverPath, 'w+');
             $client->downloadResource($imageURL, $coverResource);
         }
@@ -68,7 +75,8 @@ class FileHelper
      */
     public static function saveVideo(ClientHelper $client, string $videoPath, string $videoURL)
     {
-        if (!file_exists($videoPath)) {
+        $fs = new Filesystem();
+        if (!$fs->exists($videoPath)) {
             $videoResource = fopen($videoPath, 'w+');
             $client->downloadResource($videoURL, $videoResource);
         }
