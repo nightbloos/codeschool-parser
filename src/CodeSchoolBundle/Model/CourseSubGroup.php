@@ -26,10 +26,10 @@ class CourseSubGroup
     /**
      * CourseSubGroup constructor.
      *
-     * @param Element|\DOMElement $subGroupDomElement
-     * @param string              $directoryPath
+     * @param Element $subGroupDomElement
+     * @param string  $directoryPath
      */
-    public function __construct($subGroupDomElement, string $directoryPath)
+    public function __construct(Element $subGroupDomElement, string $directoryPath)
     {
         $this->name = trim($subGroupDomElement->find('div.js-pathFilter-subgroup h2 span.prxs')[0]->text());
         $this->description = trim($subGroupDomElement->find('div.js-pathFilter-subgroup p.tss')[0]->text());

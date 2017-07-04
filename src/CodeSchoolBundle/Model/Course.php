@@ -37,10 +37,10 @@ class Course
     /**
      * Course constructor.
      *
-     * @param Element|\DOMElement $courseDomElement
-     * @param string              $directoryPath
+     * @param Element $courseDomElement
+     * @param string  $directoryPath
      */
-    public function __construct($courseDomElement, string $directoryPath)
+    public function __construct(Element $courseDomElement, string $directoryPath)
     {
         $courseHeader = $courseDomElement->find('article div.course-content h2.course-title a.course-title-link')[0];
         $this->link = $courseHeader->getAttribute('href');
@@ -228,8 +228,9 @@ class Course
     {
         $description = 'Name: '.$this->getName()."\r\n";
         $description .= 'Description: '.$this->getShortDescription()."\r\n";
-        $description .= 'Link: '.$this->getLink()."\r\n";
+        $description .= 'Link: '.ClientHelper::BASE_URL_PATH.$this->getLink()."\r\n";
 
         FileHelper::saveDescription($this->getDirectoryPath(), $description);
+        FileHelper::saveCover($client, $this->getDirectoryPath(), $this->getImage());
     }
 }

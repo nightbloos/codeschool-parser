@@ -10,7 +10,8 @@ use CodeSchoolBundle\Util\FileHelper;
 /**
  * Class Videos.
  */
-class Videos {
+class Videos
+{
     /** @var string */
     private $name;
 
@@ -73,7 +74,7 @@ class Videos {
      */
     public function getNameForFile(): string
     {
-        return FileHelper::getSlug($this->getName()) . '.mp4';
+        return FileHelper::getSlug($this->getName()).'.mp4';
     }
 
     /**
@@ -109,7 +110,7 @@ class Videos {
      */
     public function parseVideoPath(ClientHelper $client)
     {
-        $mediaResp = $courseRes = $client->getRequest($this->media['media'], true);
+        $mediaResp = $client->getRequest($this->media['media'], true);
         $jsonMedia = \GuzzleHttp\json_decode($mediaResp->getBody()->getContents(), true);
         $vidPath = $jsonMedia['media'][0]['sources'][0]['src'];
         $this->setUrl($vidPath);
@@ -123,7 +124,7 @@ class Videos {
         echo sprintf("\t\t\t\t\t -> downloading video %s\n", $this->getName());
         FileHelper::saveVideo(
             $client,
-            $this->getDirectoryPath() . DIRECTORY_SEPARATOR . $this->getNameForFile(),
+            $this->getDirectoryPath().DIRECTORY_SEPARATOR.$this->getNameForFile(),
             $this->getUrl()
         );
     }
